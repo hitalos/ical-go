@@ -1,6 +1,7 @@
 package ical
 
 import (
+	"strings"
 	"time"
 )
 
@@ -14,6 +15,7 @@ type CalendarEvent struct {
 	ModifiedAtUTC *time.Time
 	StartAt       *time.Time
 	EndAt         *time.Time
+	Categories    []string
 }
 
 func (this *CalendarEvent) StartAtUTC() *time.Time {
@@ -22,6 +24,10 @@ func (this *CalendarEvent) StartAtUTC() *time.Time {
 
 func (this *CalendarEvent) EndAtUTC() *time.Time {
 	return inUTC(this.EndAt)
+}
+
+func (this *CalendarEvent) GetCategories() string {
+	return strings.Join(this.Categories, ",")
 }
 
 func (this *CalendarEvent) Serialize() string {
